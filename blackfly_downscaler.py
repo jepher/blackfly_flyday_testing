@@ -1,4 +1,6 @@
 import PySpin
+import os
+import io
 import timeit
 import datetime
 import numpy as np
