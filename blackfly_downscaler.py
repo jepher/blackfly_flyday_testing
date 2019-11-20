@@ -17,7 +17,7 @@ Used during fly days to test capture & preprocesing times and transmission times
         image_dir: Image output directory
 '''
 IMAGE_DIR = "./"
-IP_ADDRESS = "http://172.31.152.7:8080"
+IP_ADDRESS = "http://172.31.138.108:8080"
 USERNAME = "drone"
 PASSWORD = "ruautonomous"
 token_label = "Authorization"
@@ -40,25 +40,25 @@ def capture(cam, apply_downscale, framerate, num_images):
             if(apply_downscale == 'True'):
                 image_result = resizeImage(image_array, (500,500)) # downscale image
             else:
-                image_result = resizeImage(image_array, (1000,1000)) # downscale image
+                image_result = resizeImage(image_array, (1000,1000)) 
             # print runtime
             stop = timeit.default_timer()
             print('Processing Time: ', stop - start)
-            start = timeit.default_timer()
             img_encoded = cv2.imencode('.jpg', image_result)[1]
 
             start = timeit.default_timer() # start transmission timer
             access_token = connect()
             headers = {token_label : access_token}
-            # files = {"image": img_encoded.tostring()}
-            while True:
-                try:
-                    with open("D:/Downloads/75380261_1573374882801635_2123551660729958400_n.jpg", 'rb') as f:
-                        contents = f.read()
-                    files = {"image": contents}
-                    break
-                except Exception as e:
-                    continue
+            files = {"image": img_encoded.tostring()}
+            # while True:
+            #     try:
+            #         with open("D:/Downloads/75380261_1573374882801635_2123551660729958400_n.jpg", 'rb') as f:
+            #             contents = f.read()
+            #         files = {"image": contents}
+            #         break
+            #     except Exception as e:
+            #         continue
+            
             telem_data = {name: (None,"1") for name in ["pitch", "roll", "lat", "lon", "alt", "rel_alt", "yaw", "hdg"]}
             telem_data["time_saved"] = datetime.datetime.now().strftime("%H:%M:%S")
             telem_data["time_sent"] = datetime.datetime.now().strftime("%H:%M:%S")
