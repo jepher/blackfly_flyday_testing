@@ -11,10 +11,12 @@ import requests, json
 '''
 Used during fly days to test capture & preprocesing times and transmission times.
     Flags:
-        apply_downscale: Should the image be downscaled?
-        framerate: Capturing framerate
-        num_images: Number of images to capture
-        image_dir: Image output directory
+        apply_downscale: Should the image be downscaled? (Boolean: True/False)
+        framerate: Capturing framerate (Integer)
+        num_images: Number of images to capture (Integer)
+        image_dir: Image output directory (Directory) (CURRENTLY NOT USED)
+
+    Example input: blackfly_flyday_testing % python blackfly_downscaler.py True 2 20
 '''
 IMAGE_DIR = "./"
 IP_ADDRESS = "http://172.31.138.108:8080"
